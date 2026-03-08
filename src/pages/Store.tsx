@@ -29,6 +29,7 @@ const Store = () => {
   const [paymentType, setPaymentType] = useState<"send" | "cashout" | null>(null);
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
+  const { isAdmin } = useAdmin();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {

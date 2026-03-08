@@ -113,6 +113,9 @@ const Store = () => {
                 <Shield className="w-4 h-4 mr-2" /> Admin
               </Button>
             )}
+            <Button variant="ghost" size="icon" onClick={() => setPasswordDialog(true)} title="Change Password">
+              <KeyRound className="w-4 h-4" />
+            </Button>
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-2" /> Logout
             </Button>

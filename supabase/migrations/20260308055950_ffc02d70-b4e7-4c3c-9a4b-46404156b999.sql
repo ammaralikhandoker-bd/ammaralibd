@@ -1,0 +1,1 @@
+UPDATE products SET price = 500, updated_at = now();

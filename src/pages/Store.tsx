@@ -36,6 +36,8 @@ const Store = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [changingPassword, setChangingPassword] = useState(false);
+  const [trxId, setTrxId] = useState("");
+  const [submittingOrder, setSubmittingOrder] = useState(false);
   const navigate = useNavigate();
   const { isAdmin } = useAdmin();
 

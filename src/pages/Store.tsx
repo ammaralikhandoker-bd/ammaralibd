@@ -98,6 +98,7 @@ const Store = () => {
   const handleBuyClick = (product: Product) => {
     setSelectedProduct(product);
     setPaymentType(null);
+    setTrxId("");
   };
 
   return (

@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { LogOut, ShoppingBag, MessageCircle, Phone, Copy, CheckCircle2, SendHorizonal, ArrowDownToLine, Shield } from "lucide-react";
+import { LogOut, ShoppingBag, MessageCircle, Phone, Copy, CheckCircle2, SendHorizonal, ArrowDownToLine, Shield, KeyRound } from "lucide-react";
 import { toast } from "sonner";
 import type { User } from "@supabase/supabase-js";
 import { useAdmin } from "@/hooks/useAdmin";
@@ -28,6 +30,10 @@ const Store = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [paymentType, setPaymentType] = useState<"send" | "cashout" | null>(null);
   const [copied, setCopied] = useState(false);
+  const [passwordDialog, setPasswordDialog] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
   const navigate = useNavigate();
   const { isAdmin } = useAdmin();
 
@@ -64,6 +70,27 @@ const Store = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handlePasswordChange = async () => {
+    if (newPassword.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    setChangingPassword(true);
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) toast.error(error.message);
+    else {
+      toast.success("Password changed successfully!");
+      setPasswordDialog(false);
+      setNewPassword("");
+      setConfirmPassword("");
+    }
+    setChangingPassword(false);
+  };
+
   const handleBuyClick = (product: Product) => {
     setSelectedProduct(product);
     setPaymentType(null);
@@ -86,6 +113,9 @@ const Store = () => {
                 <Shield className="w-4 h-4 mr-2" /> Admin
               </Button>
             )}
+            <Button variant="ghost" size="icon" onClick={() => setPasswordDialog(true)} title="Change Password">
+              <KeyRound className="w-4 h-4" />
+            </Button>
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-2" /> Logout
             </Button>
@@ -309,6 +339,31 @@ const Store = () => {
               </div>
             </motion.div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Password Change Dialog */}
+      <Dialog open={passwordDialog} onOpenChange={(open) => { if (!open) { setPasswordDialog(false); setNewPassword(""); setConfirmPassword(""); } }}>
+        <DialogContent className="sm:max-w-sm border-border bg-card">
+          <DialogHeader>
+            <DialogTitle className="font-display flex items-center gap-2">
+              <KeyRound className="w-5 h-5 text-primary" /> Change Password
+            </DialogTitle>
+            <DialogDescription>Enter your new password below.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label>New Password</Label>
+              <Input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="••••••••" minLength={6} />
+            </div>
+            <div className="space-y-2">
+              <Label>Confirm Password</Label>
+              <Input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="••••••••" />
+            </div>
+            <Button className="w-full bg-primary text-primary-foreground" onClick={handlePasswordChange} disabled={changingPassword}>
+              {changingPassword ? "Changing..." : "Change Password"}
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

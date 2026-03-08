@@ -70,6 +70,27 @@ const Store = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handlePasswordChange = async () => {
+    if (newPassword.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+    setChangingPassword(true);
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) toast.error(error.message);
+    else {
+      toast.success("Password changed successfully!");
+      setPasswordDialog(false);
+      setNewPassword("");
+      setConfirmPassword("");
+    }
+    setChangingPassword(false);
+  };
+
   const handleBuyClick = (product: Product) => {
     setSelectedProduct(product);
     setPaymentType(null);

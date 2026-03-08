@@ -323,6 +323,17 @@ const Store = () => {
                 </ol>
               </div>
 
+              {paymentType === "send" && (
+                <div className="space-y-2">
+                  <Label>bKash Transaction ID (TrxID)</Label>
+                  <Input
+                    value={trxId}
+                    onChange={(e) => setTrxId(e.target.value)}
+                    placeholder="e.g. TrxID: BI70XXXXX"
+                  />
+                </div>
+              )}
+
               <div className="flex gap-3">
                 <Button
                   variant="outline"
@@ -331,16 +342,46 @@ const Store = () => {
                 >
                   Back
                 </Button>
-                <Button
-                  className="flex-1 bg-[#E2136E] hover:bg-[#E2136E]/90 text-white"
-                  onClick={() => {
-                    toast.success("Thank you! Please complete the payment via bKash. We'll confirm your order soon.");
-                    setSelectedProduct(null);
-                    setPaymentType(null);
-                  }}
-                >
-                  I've Paid ✓
-                </Button>
+                {paymentType === "send" ? (
+                  <Button
+                    className="flex-1 bg-[#E2136E] hover:bg-[#E2136E]/90 text-white"
+                    disabled={!trxId.trim() || submittingOrder}
+                    onClick={async () => {
+                      if (!trxId.trim()) { toast.error("TrxID দাও"); return; }
+                      if (!selectedProduct || !user) return;
+                      setSubmittingOrder(true);
+                      const { error } = await supabase.from("orders").insert({
+                        user_id: user.id,
+                        product_id: selectedProduct.id,
+                        product_title: selectedProduct.title,
+                        amount: selectedProduct.price,
+                        payment_method: `bKash Send Money - TrxID: ${trxId.trim()}`,
+                        status: "pending",
+                      });
+                      if (error) toast.error(error.message);
+                      else {
+                        toast.success("Order submitted! আমরা verify করে confirm করবো।");
+                        setSelectedProduct(null);
+                        setPaymentType(null);
+                        setTrxId("");
+                      }
+                      setSubmittingOrder(false);
+                    }}
+                  >
+                    {submittingOrder ? "Submitting..." : "Submit Order ✓"}
+                  </Button>
+                ) : (
+                  <Button
+                    className="flex-1 bg-[#E2136E] hover:bg-[#E2136E]/90 text-white"
+                    onClick={() => {
+                      toast.success("Thank you! Please complete the payment via bKash.");
+                      setSelectedProduct(null);
+                      setPaymentType(null);
+                    }}
+                  >
+                    I've Paid ✓
+                  </Button>
+                )}
               </div>
             </motion.div>
           )}

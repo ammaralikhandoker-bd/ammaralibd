@@ -30,6 +30,10 @@ const Store = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [paymentType, setPaymentType] = useState<"send" | "cashout" | null>(null);
   const [copied, setCopied] = useState(false);
+  const [passwordDialog, setPasswordDialog] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
   const navigate = useNavigate();
   const { isAdmin } = useAdmin();
 

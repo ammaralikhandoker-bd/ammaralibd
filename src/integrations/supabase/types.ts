@@ -14,6 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
+      orders: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          payment_method: string | null
+          product_id: string | null
+          product_title: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string
+          id?: string
+          payment_method?: string | null
+          product_id?: string | null
+          product_title: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          payment_method?: string | null
+          product_id?: string | null
+          product_title?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          page: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           category: string | null

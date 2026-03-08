@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { usePageView } from "@/hooks/usePageView";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ interface Product {
 }
 
 const Store = () => {
+  usePageView("store");
   const [user, setUser] = useState<User | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);

@@ -25,6 +25,7 @@ interface Product {
 }
 
 const Store = () => {
+  usePageView("store");
   const [user, setUser] = useState<User | null>(null);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);

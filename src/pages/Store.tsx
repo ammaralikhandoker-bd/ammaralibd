@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { LogOut, ShoppingBag, MessageCircle, Phone, Copy, CheckCircle2, SendHorizonal, ArrowDownToLine } from "lucide-react";
+import { LogOut, ShoppingBag, MessageCircle, Phone, Copy, CheckCircle2, SendHorizonal, ArrowDownToLine, Shield } from "lucide-react";
 import { toast } from "sonner";
 import type { User } from "@supabase/supabase-js";
 

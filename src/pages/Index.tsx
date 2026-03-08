@@ -10,6 +10,7 @@ import InsightsSection from "@/components/InsightsSection";
 import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
+  usePageView("home");
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

@@ -1,0 +1,6 @@
+UPDATE products SET image_url = 'https://kmrjjmhkzidtybswoucu.supabase.co/storage/v1/object/public/product-images/hr-consulting.jpg', updated_at = now() WHERE id = '336d2f32-59a6-4d41-9adb-996357b73641';
+UPDATE products SET image_url = 'https://kmrjjmhkzidtybswoucu.supabase.co/storage/v1/object/public/product-images/resume-writing.jpg', updated_at = now() WHERE id = '760588e1-0749-43b1-a955-0f9efa108a5f';
+UPDATE products SET image_url = 'https://kmrjjmhkzidtybswoucu.supabase.co/storage/v1/object/public/product-images/digital-marketing.jpg', updated_at = now() WHERE id = '972bfdf4-e3be-41ec-804f-e60229e62ac1';
+UPDATE products SET image_url = 'https://kmrjjmhkzidtybswoucu.supabase.co/storage/v1/object/public/product-images/data-entry.jpg', updated_at = now() WHERE id = '016984fd-36ed-4384-aba1-128e16674df1';
+UPDATE products SET image_url = 'https://kmrjjmhkzidtybswoucu.supabase.co/storage/v1/object/public/product-images/erp-guide.jpg', updated_at = now() WHERE id = '715dd601-d98c-49ed-8ca8-0f2fe50ae094';
+UPDATE products SET image_url = 'https://kmrjjmhkzidtybswoucu.supabase.co/storage/v1/object/public/product-images/social-media.jpg', updated_at = now() WHERE id = '07dbb547-75a6-4f44-a1f2-a07c48a78443';

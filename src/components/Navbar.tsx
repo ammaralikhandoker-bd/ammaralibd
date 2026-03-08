@@ -59,6 +59,12 @@ const Navbar = () => {
               {item.label}
             </a>
           ))}
+          <a
+            href={user ? "/store" : "/auth"}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+          >
+            {user ? <><ShoppingBag className="w-4 h-4" /> Store</> : <><LogIn className="w-4 h-4" /> Sign In</>}
+          </a>
         </div>
 
         {/* Mobile toggle */}

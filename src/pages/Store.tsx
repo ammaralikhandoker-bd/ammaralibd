@@ -341,6 +341,31 @@ const Store = () => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Password Change Dialog */}
+      <Dialog open={passwordDialog} onOpenChange={(open) => { if (!open) { setPasswordDialog(false); setNewPassword(""); setConfirmPassword(""); } }}>
+        <DialogContent className="sm:max-w-sm border-border bg-card">
+          <DialogHeader>
+            <DialogTitle className="font-display flex items-center gap-2">
+              <KeyRound className="w-5 h-5 text-primary" /> Change Password
+            </DialogTitle>
+            <DialogDescription>Enter your new password below.</DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="space-y-2">
+              <Label>New Password</Label>
+              <Input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="••••••••" minLength={6} />
+            </div>
+            <div className="space-y-2">
+              <Label>Confirm Password</Label>
+              <Input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="••••••••" />
+            </div>
+            <Button className="w-full bg-primary text-primary-foreground" onClick={handlePasswordChange} disabled={changingPassword}>
+              {changingPassword ? "Changing..." : "Change Password"}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

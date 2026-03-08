@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { LogOut, ShoppingBag, MessageCircle, Phone, Copy, CheckCircle2, SendHorizonal, ArrowDownToLine, Shield } from "lucide-react";
 import { toast } from "sonner";
 import type { User } from "@supabase/supabase-js";
+import { useAdmin } from "@/hooks/useAdmin";
 
 const BKASH_NUMBER = "01716861353";
 

@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
-import { LogOut, ShoppingBag, MessageCircle, Phone, Copy, CheckCircle2, SendHorizonal, ArrowDownToLine } from "lucide-react";
+import { LogOut, ShoppingBag, MessageCircle, Phone, Copy, CheckCircle2, SendHorizonal, ArrowDownToLine, Shield } from "lucide-react";
 import { toast } from "sonner";
 import type { User } from "@supabase/supabase-js";
+import { useAdmin } from "@/hooks/useAdmin";
 
 const BKASH_NUMBER = "01716861353";
 
@@ -28,6 +29,7 @@ const Store = () => {
   const [paymentType, setPaymentType] = useState<"send" | "cashout" | null>(null);
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
+  const { isAdmin } = useAdmin();
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -79,6 +81,11 @@ const Store = () => {
             <span className="text-sm text-muted-foreground hidden sm:block">
               {user?.email}
             </span>
+            {isAdmin && (
+              <Button variant="outline" size="sm" onClick={() => navigate("/admin")} className="border-primary/30">
+                <Shield className="w-4 h-4 mr-2" /> Admin
+              </Button>
+            )}
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-2" /> Logout
             </Button>

@@ -81,6 +81,11 @@ const Store = () => {
             <span className="text-sm text-muted-foreground hidden sm:block">
               {user?.email}
             </span>
+            {isAdmin && (
+              <Button variant="outline" size="sm" onClick={() => navigate("/admin")} className="border-primary/30">
+                <Shield className="w-4 h-4 mr-2" /> Admin
+              </Button>
+            )}
             <Button variant="ghost" size="sm" onClick={handleLogout}>
               <LogOut className="w-4 h-4 mr-2" /> Logout
             </Button>

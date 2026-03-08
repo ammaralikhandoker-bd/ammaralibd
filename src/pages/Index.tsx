@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { usePageView } from "@/hooks/usePageView";
 import HeroSection from "@/components/HeroSection";
 import AboutSection from "@/components/AboutSection";
 import ExperienceSection from "@/components/ExperienceSection";

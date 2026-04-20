@@ -52,7 +52,6 @@
 
     /* Gradients & shadows */
     --gradient-primary: linear-gradient(135deg, hsl(244 100% 69%), hsl(191 100% 50%));
-    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(244 100% 69% / 0.15), transparent 60%);
     --gradient-dark: linear-gradient(180deg, hsl(215 28% 7%), hsl(218 25% 10%));
     --gradient-mesh: radial-gradient(at 20% 20%, hsl(244 100% 69% / 0.18) 0px, transparent 50%),
                      radial-gradient(at 80% 30%, hsl(191 100% 50% / 0.12) 0px, transparent 50%),
@@ -106,7 +105,6 @@
     background: linear-gradient(180deg, hsl(244 100% 69% / 0.8), hsl(191 100% 50% / 0.8));
   }
 
-  /* Selection */
   ::selection {
     background: hsl(244 100% 69% / 0.3);
     color: hsl(220 20% 98%);
@@ -114,7 +112,7 @@
 }
 
 @layer utilities {
-  /* Brand gradient text — kept name `text-gradient-gold` for backwards compat */
+  /* Brand gradient text — `text-gradient-gold` kept for backwards compat */
   .text-gradient-gold,
   .text-gradient-primary {
     background: linear-gradient(135deg, hsl(244 100% 69%), hsl(191 100% 50%));
@@ -132,10 +130,10 @@
 
   /* Glassmorphism */
   .bg-glass {
-    background: hsl(218 25% 10% / 0.6);
+    background: hsl(218 25% 10% / 0.65);
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid hsl(0 0% 100% / 0.06);
+    border-bottom: 1px solid hsl(0 0% 100% / 0.06);
   }
 
   .glass-card {
@@ -162,29 +160,10 @@
       0 0 48px hsl(191 100% 50% / 0.3);
   }
 
-  /* Animated mesh background */
   .bg-mesh {
     background-image: var(--gradient-mesh);
   }
 
-  /* Animated gradient border */
-  .border-gradient {
-    position: relative;
-  }
-  .border-gradient::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, hsl(244 100% 69% / 0.6), hsl(191 100% 50% / 0.6));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-  }
-
-  /* Hover lift */
   .hover-lift {
     transition: transform 0.4s var(--transition-spring), box-shadow 0.4s var(--transition-smooth);
   }
@@ -193,18 +172,33 @@
     box-shadow: var(--shadow-elegant);
   }
 
-  /* Story underline link */
-  .story-link {
-    position: relative;
+  /* Pulsing ring for FAB */
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 hsl(142 70% 45% / 0.7); }
+    70% { box-shadow: 0 0 0 18px hsl(142 70% 45% / 0); }
+    100% { box-shadow: 0 0 0 0 hsl(142 70% 45% / 0); }
   }
-  .story-link::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    height: 1.5px;
-    width: 100%;
-    background: linear-gradient(90deg, hsl(244 100% 69%), hsl(191 100% 50%));
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.35s var(--transition-sm
+  .pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.66, 0, 0, 1) infinite;
+  }
+
+  /* Animated gradient blob */
+  @keyframes blob-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+  .animate-blob {
+    animation: blob-float 18s ease-in-out infinite;
+  }
+
+  /* Slow gradient shift */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+}

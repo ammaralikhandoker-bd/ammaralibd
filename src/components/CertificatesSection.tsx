@@ -14,18 +14,19 @@ const certs = [
 
 const CertificatesSection = () => {
   return (
-    <section id="certificates" className="py-24">
-      <div className="container mx-auto px-4">
+    <section id="certificates" className="py-20 sm:py-28 relative">
+      <div className="container mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Continuous Learning</span>
+          <h2 className="font-display text-3xl md:text-5xl font-bold mt-2">
             My <span className="text-gradient-gold">Certificates</span>
           </h2>
-          <p className="text-muted-foreground mt-2">62+ Professional Certifications</p>
+          <p className="text-muted-foreground mt-2 text-sm">62+ Professional Certifications</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
@@ -36,20 +37,22 @@ const CertificatesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="group bg-card border border-border rounded-xl p-5 hover:border-primary/30 transition-all"
+              className="group glass-card rounded-2xl p-5 hover-lift"
             >
-              <Award className="w-5 h-5 text-primary mb-3" />
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-3">
+                <Award className="w-4 h-4 text-accent" />
+              </div>
               <h3 className="font-display text-sm font-semibold leading-snug mb-2 line-clamp-2">
                 {cert.title}
               </h3>
-              <p className="text-xs text-primary/80">{cert.org}</p>
-              <p className="text-xs text-muted-foreground mt-1">{cert.date}</p>
+              <p className="text-xs text-primary/90 font-medium">{cert.org}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">{cert.date}</p>
               {cert.url && (
                 <a
                   href={cert.url}
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary mt-3 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-accent mt-3 transition-colors"
                 >
                   Show credential <ExternalLink className="w-3 h-3" />
                 </a>
